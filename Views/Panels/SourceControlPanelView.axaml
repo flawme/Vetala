@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Vetala.ViewModels"
+             xmlns:models="using:Vetala.Models"
+             x:Class="Vetala.Views.SourceControlPanelView"
+             x:DataType="vm:MainWindowViewModel">
+
+    <Border Background="#252526" BorderBrush="#1E1E1E" BorderThickness="0,0,1,0" MinWidth="150">
+        <Grid RowDefinitions="35, Auto, *">
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#2D2D2D" BorderBrush="#1E1E1E" BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="*, Auto" Margin="12,0,8,0">
+                    <TextBlock Grid.Column="0" Text="SOURCE CONTROL" FontSize="11" FontWeight="Bold"
+                               VerticalAlignment="Center" Foreground="#888888"
+                               LetterSpacing="0.5"/>
+                    <Button Grid.Column="1" Padding="3" Background="Transparent" BorderThickness="0"
+                            Command="{Binding SourceControl.RefreshCommand}" ToolTip.Tip="Refresh">
+                        <TextBlock Text="⟳" FontSize="12" Foreground="#888888"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Branch -->
+            <StackPanel Grid.Row="1" Margin="12,10,10,8" Orientation="Horizontal" Spacing="6"
+                        IsVisible="{Binding SourceControl.IsGitRepo}">
+                <PathIcon Data="{DynamicResource IconGitBranch}" Width="12" Height="12"
+                          Foreground="#888888" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding SourceControl.Branch}" FontSize="12"
+                           Foreground="#C8C8C8" VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock Grid.Row="1" Margin="12,10,10,8" FontSize="11" Foreground="#888888"
+                       Text="Not a git repository" IsVisible="{Binding !SourceControl.IsGitRepo}"/>
+
+            <!-- File lists -->
+            <ScrollViewer Grid.Row="2" Background="Transparent">
+                <StackPanel>
+                    <TextBlock Text="CHANGES" FontSize="11" FontWeight="Bold" Foreground="#888888"
+                               Margin="12,8,8,4" LetterSpacing="0.5"
+                               IsVisible="{Binding SourceControl.HasChanges}"/>
+                    <ItemsControl ItemsSource="{Binding SourceControl.ChangedFiles}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="models:GitStatusEntry">
+                                <Border Background="Transparent" Cursor="Hand"
+                                        PointerPressed="OnFilePointerPressed"
+                                        Tag="{Binding}"
+                                        Padding="12,3,8,3" MinHeight="22">
+                                    <Grid ColumnDefinitions="Auto, *">
+                                        <Border Grid.Column="0" Width="16" Height="16" CornerRadius="2"
+                                                Background="{Binding BadgeBrush}" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding BadgeText}" FontSize="10"
+                                                       Foreground="#1E1E1E" FontWeight="Bold"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <TextBlock Grid.Column="1" Text="{Binding RelativePath}"
+                                                   Margin="8,0,0,0" FontSize="12" Foreground="#C8C8C8"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   ToolTip.Tip="{Binding StatusText}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="UNTRACKED" FontSize="11" FontWeight="Bold" Foreground="#888888"
+                               Margin="12,10,8,4" LetterSpacing="0.5"
+                               IsVisible="{Binding SourceControl.HasUntracked}"/>
+                    <ItemsControl ItemsSource="{Binding SourceControl.UntrackedFiles}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="models:GitStatusEntry">
+                                <Border Background="Transparent" Cursor="Hand"
+                                        PointerPressed="OnFilePointerPressed"
+                                        Tag="{Binding}"
+                                        Padding="12,3,8,3" MinHeight="22">
+                                    <Grid ColumnDefinitions="Auto, *">
+                                        <Border Grid.Column="0" Width="16" Height="16" CornerRadius="2"
+                                                Background="{Binding BadgeBrush}" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding BadgeText}" FontSize="10"
+                                                       Foreground="#1E1E1E" FontWeight="Bold"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <TextBlock Grid.Column="1" Text="{Binding RelativePath}"
+                                                   Margin="8,0,0,0" FontSize="12" Foreground="#C8C8C8"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   ToolTip.Tip="{Binding StatusText}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="{Binding SourceControl.StatusText}" FontSize="11" Foreground="#888888"
+                               Margin="12,10,8,4" IsVisible="{Binding !SourceControl.HasChanges}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

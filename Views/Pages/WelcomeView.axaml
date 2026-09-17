@@ -1,0 +1,216 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Vetala.ViewModels"
+             xmlns:views="using:Vetala.Views"
+             x:DataType="vm:MainWindowViewModel"
+             x:Class="Vetala.Views.WelcomeView">
+    <Grid ColumnDefinitions="220, *">
+        
+        <!-- Sidebar Navigation -->
+        <Border Grid.Column="0" Background="#252526" BorderBrush="#1E1E1E" BorderThickness="0,0,1,0">
+            <Grid RowDefinitions="Auto, *, Auto">
+                <!-- App Identity -->
+                <StackPanel Grid.Row="0" Margin="16,20,16,24" Spacing="2">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{DynamicResource IconFolderOpen}" 
+                                  Width="16" Height="16" Foreground="{DynamicResource AppAccent}"/>
+                        <TextBlock Text="Vetala" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center" Foreground="#CCCCCC"/>
+                    </StackPanel>
+                    <TextBlock Text="v1.0.0-dev" FontSize="11" Foreground="#888888" Margin="24,0,0,0"/>
+                </StackPanel>
+                
+                <!-- Navigation -->
+                <StackPanel Grid.Row="1">
+                    <Button Classes="SidebarItem" Classes.Active="{Binding IsProjectsPage}"
+                            Command="{Binding NavigateToCommand}" CommandParameter="Projects">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <PathIcon Data="{DynamicResource IconFolderOpen}" Width="16" Height="16"/>
+                            <TextBlock Text="Projects" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Classes="SidebarItem" Classes.Active="{Binding IsHowToRunPage}"
+                            Command="{Binding NavigateToCommand}" CommandParameter="HowToRun">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <PathIcon Data="{DynamicResource IconPlay}" Width="16" Height="16"/>
+                            <TextBlock Text="How to Run" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Classes="SidebarItem" Classes.Active="{Binding IsResourcesPage}"
+                            Command="{Binding NavigateToCommand}" CommandParameter="Resources">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <PathIcon Data="{DynamicResource IconBook}" Width="16" Height="16"/>
+                            <TextBlock Text="Resources" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Classes="SidebarItem" Classes.Active="{Binding IsLicensesPage}"
+                            Command="{Binding NavigateToCommand}" CommandParameter="Licenses">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <PathIcon Data="{DynamicResource IconDocument}" Width="16" Height="16"/>
+                            <TextBlock Text="Licenses" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Content Area -->
+        <Grid Grid.Column="1" Background="#1E1E1E">
+            
+            <!-- Projects Page (default landing tab) -->
+            <Grid RowDefinitions="Auto, Auto, *, Auto" IsVisible="{Binding IsProjectsPage}">
+                <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="24,20,24,16">
+                    <TextBlock Grid.Column="0" Text="Projects" FontSize="24" FontWeight="SemiBold" 
+                               VerticalAlignment="Center" Foreground="#CCCCCC"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                        <TextBox PlaceholderText="Search" Width="180" VerticalAlignment="Center"/>
+                        <Button Content="Open" Click="OnOpenProjectClick" VerticalAlignment="Center"/>
+                        <Button Content="+ New project" Classes="Primary" Click="OnNewProjectClick" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Border Grid.Row="1" BorderBrush="#3C3C3C" BorderThickness="0,1" Padding="24,6">
+                    <Grid ColumnDefinitions="*, 140, 140, 80">
+                        <TextBlock Grid.Column="0" Text="Name" FontSize="11" FontWeight="Bold" Foreground="#888888"/>
+                        <TextBlock Grid.Column="1" Text="Modified" FontSize="11" FontWeight="Bold" Foreground="#888888"/>
+                        <TextBlock Grid.Column="2" Text="Editor version" FontSize="11" FontWeight="Bold" Foreground="#888888"/>
+                        <TextBlock Grid.Column="3" Text="Size" FontSize="11" FontWeight="Bold" Foreground="#888888"/>
+                    </Grid>
+                </Border>
+                <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12" Margin="0,0,0,64">
+                    <PathIcon Data="{DynamicResource IconFolderOpen}" Width="40" Height="40" Foreground="#555555" HorizontalAlignment="Center" Opacity="0.4"/>
+                    <TextBlock Text="No projects" FontSize="14" FontWeight="SemiBold" Foreground="#888888" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                    <TextBlock Text="Create a new project or select your projects folder to get started." FontSize="13" Foreground="#555555" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="0,8,0,0">
+                        <Button Content="Import projects" Click="OnOpenProjectClick"/>
+                        <Button Content="+ New project" Classes="Primary" Click="OnNewProjectClick"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- License notice always visible at bottom of projects page -->
+                <Border Grid.Row="3" Background="#1A1A1A" BorderBrush="#2D2D2D" BorderThickness="0,1,0,0" Padding="24,12">
+                    <StackPanel Spacing="4">
+                        <TextBlock FontSize="11" Foreground="#555555" TextWrapping="Wrap">
+                            Copyright © 2026 Vetala. All rights reserved.
+                        </TextBlock>
+                        <TextBlock FontSize="11" Foreground="#555555" TextWrapping="Wrap">
+                            This application uses open-source components:
+                            Avalonia UI (MIT), AvaloniaEdit (MIT), CommunityToolkit.Mvvm (MIT),
+                            Porta.Pty (MIT), Inter Font (OFL 1.1), JetBrains Mono (OFL 1.1).
+                        </TextBlock>
+                        <TextBlock FontSize="11" Foreground="#569CD6" TextDecorations="Underline"
+                                   Cursor="Hand" PointerPressed="OnThirdPartyClick">
+                            View full Licenses page →
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Licenses Page -->
+            <views:LicensesView IsVisible="{Binding IsLicensesPage}"/>
+
+            <!-- How to Run Page -->
+            <ScrollViewer Background="#1E1E1E" IsVisible="{Binding IsHowToRunPage}" Padding="32,24">
+                <StackPanel Spacing="24" MaxWidth="640">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="How to Run" FontSize="24" FontWeight="SemiBold" Foreground="#CCCCCC"/>
+                        <TextBlock Text="Get started with Vetala" FontSize="13" Foreground="#888888"/>
+                    </StackPanel>
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="1. Create or open a project" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="Use the Projects tab to create a new project or open an existing folder." FontSize="12" Foreground="#888888" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="2. Edit your code" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="The editor supports syntax highlighting, code folding, and word completions." FontSize="12" Foreground="#888888" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="3. Use the integrated terminal" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="Run builds, tests, and commands directly from the bottom panel." FontSize="12" Foreground="#888888" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Resources Page -->
+            <ScrollViewer Background="#1E1E1E" IsVisible="{Binding IsResourcesPage}" Padding="32,24">
+                <StackPanel Spacing="24" MaxWidth="640">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Resources" FontSize="24" FontWeight="SemiBold" Foreground="#CCCCCC"/>
+                        <TextBlock Text="Documentation, shortcuts, and helpful links" FontSize="13" Foreground="#888888"/>
+                    </StackPanel>
+
+                    <!-- Keyboard Shortcuts -->
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Keyboard Shortcuts" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="Ctrl+S  Save  |  Ctrl+Shift+S  Save All  |  Ctrl+W  Close Tab" FontSize="12" Foreground="#888888" FontFamily="{DynamicResource MonoFont}"/>
+                            <TextBlock Text="Ctrl+P  Quick Open  |  Ctrl+Shift+P  Command Palette  |  Ctrl+K  Quick Actions" FontSize="12" Foreground="#888888" FontFamily="{DynamicResource MonoFont}"/>
+                            <TextBlock Text="Ctrl+F  Find  |  Ctrl+H  Replace  |  Ctrl+G  Go to Line" FontSize="12" Foreground="#888888" FontFamily="{DynamicResource MonoFont}"/>
+                            <TextBlock Text="Ctrl+B  Toggle Explorer  |  Double-click  Rename file" FontSize="12" Foreground="#888888" FontFamily="{DynamicResource MonoFont}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Documentation -->
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16" Cursor="Hand" PointerPressed="OnDocumentationClick">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Documentation" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="Official Vetala documentation and guides" FontSize="12" Foreground="#888888"/>
+                            <TextBlock Text="github.com/flawme/Vetala" FontSize="11" Foreground="#569CD6"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Report Issue -->
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16" Cursor="Hand" PointerPressed="OnReportIssueClick">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Report an Issue" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="Found a bug? Let us know so we can fix it" FontSize="12" Foreground="#888888"/>
+                            <TextBlock Text="github.com/flawme/Vetala/issues" FontSize="11" Foreground="#569CD6"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Features -->
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16" Cursor="Hand" PointerPressed="OnFeaturesClick">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Features List" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="Complete list of all features, shortcuts, and architecture" FontSize="12" Foreground="#888888"/>
+                            <TextBlock Text="FEATURES.md" FontSize="11" Foreground="#569CD6"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Third Party -->
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16" Cursor="Hand" PointerPressed="OnThirdPartyClick">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Third-Party Libraries" FontWeight="SemiBold" FontSize="13"/>
+                            <TextBlock Text="Open source libraries that power Vetala" FontSize="12" Foreground="#888888"/>
+                            <TextBlock Text="See Licenses tab for full attributions" FontSize="11" Foreground="#569CD6"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Tech Stack -->
+                    <Border Background="#2D2D2D" BorderBrush="#3C3C3C" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Tech Stack" FontWeight="SemiBold" FontSize="13"/>
+                            <Grid ColumnDefinitions="120, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Language" FontSize="12" Foreground="#888888"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="C# (.NET 10.0)" FontSize="12"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="UI Framework" FontSize="12" Foreground="#888888"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="Avalonia UI 12.0.4" FontSize="12"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Editor" FontSize="12" Foreground="#888888"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="AvaloniaEdit 12.0.0" FontSize="12"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="MVVM" FontSize="12" Foreground="#888888"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="CommunityToolkit.Mvvm 8.4.1" FontSize="12"/>
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Theme" FontSize="12" Foreground="#888888"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="VS Code Dark+" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+        </Grid>
+    </Grid>
+</UserControl>

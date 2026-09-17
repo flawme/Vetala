@@ -1,0 +1,102 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Vetala.ViewModels"
+        xmlns:views="using:Vetala.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+        x:Class="Vetala.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Vetala">
+
+    <Panel>
+        <!-- IDE View -->
+        <Grid IsVisible="{Binding IsProjectOpen}" RowDefinitions="*, 22">
+            <!-- Main Content Area -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />       <!-- Activity Bar -->
+                    <ColumnDefinition Width="{Binding ExplorerColumnWidth, Mode=TwoWay}" MaxWidth="600" />
+                    <ColumnDefinition Width="Auto" />     <!-- Splitter -->
+                    <ColumnDefinition Width="*" />         <!-- Editor + Bottom -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Activity Bar -->
+                <Border Grid.Column="0" Background="#333333" BorderBrush="#252526" BorderThickness="0,0,1,0">
+                    <StackPanel Spacing="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Button Classes="ActivityBar"
+                                Command="{Binding ToggleExplorerCommand}" ToolTip.Tip="Explorer (Ctrl+B)">
+                            <PathIcon Data="{DynamicResource IconFolderOpen}" Width="22" Height="22" Foreground="#CCCCCC"/>
+                        </Button>
+                        <Button Classes="ActivityBar"
+                                Command="{Binding ToggleSearchCommand}" ToolTip.Tip="Search (Ctrl+Shift+F)">
+                            <PathIcon Data="{DynamicResource IconSearch}" Width="22" Height="22" Foreground="#CCCCCC"/>
+                        </Button>
+                        <Button Classes="ActivityBar"
+                                Command="{Binding ToggleSourceControlCommand}" ToolTip.Tip="Source Control (Ctrl+Shift+G)">
+                            <PathIcon Data="{DynamicResource IconGitBranch}" Width="22" Height="22" Foreground="#CCCCCC"/>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- Sidebar panels (one visible at a time) -->
+                <views:SidebarView Grid.Column="1" IsVisible="{Binding IsExplorerVisible}" />
+                <views:SearchPanelView Grid.Column="1" IsVisible="{Binding IsSearchVisible}" />
+                <views:SourceControlPanelView Grid.Column="1" IsVisible="{Binding IsSourceControlVisible}" />
+
+                <GridSplitter Grid.Column="2" Background="#252526" ResizeDirection="Columns" 
+                              IsVisible="{Binding IsSidebarVisible}"
+                              Width="3">
+                    <GridSplitter.Styles>
+                        <Style Selector="GridSplitter:pointerover">
+                            <Setter Property="Background" Value="#0078D4"/>
+                        </Style>
+                    </GridSplitter.Styles>
+                </GridSplitter>
+
+                <!-- Editor + Bottom Panel -->
+                <Grid Grid.Column="3" RowDefinitions="*, 4, 250" Background="#1E1E1E">
+                    <views:EditorView Grid.Row="0" DataContext="{Binding Editor}"/>
+                    <GridSplitter Grid.Row="1" Background="#1E1E1E" ResizeDirection="Rows" Height="4">
+                        <GridSplitter.Styles>
+                            <Style Selector="GridSplitter:pointerover">
+                                <Setter Property="Background" Value="#0078D4"/>
+                            </Style>
+                        </GridSplitter.Styles>
+                    </GridSplitter>
+                    <views:BottomPanelView Grid.Row="2" x:Name="BottomPanel"/>
+                </Grid>
+            </Grid>
+
+            <!-- Status Bar (VS Code style) -->
+            <Border Grid.Row="1" Background="{DynamicResource AppStatusBar}" BorderThickness="0">
+                <Grid ColumnDefinitions="Auto, *, Auto, Auto, Auto, Auto, Auto, Auto">
+                    <!-- Left: Git branch (real, from the opened project) -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="4" Margin="8,0,12,0" VerticalAlignment="Center"
+                                IsVisible="{Binding HasGitBranch}">
+                        <PathIcon Data="{DynamicResource IconGitBranch}" Width="10" Height="10" Foreground="White"/>
+                        <TextBlock Text="{Binding StatusGitBranch}" FontSize="12" Foreground="White" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Spacer -->
+                    <Panel Grid.Column="1"/>
+
+                    <!-- Right status items -->
+                    <TextBlock Grid.Column="2" Text="{Binding StatusLine}" FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                    <TextBlock Grid.Column="3" Text="{Binding StatusColumn}" FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="4" Text="{Binding StatusSpaces}" FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="5" Text="{Binding StatusEncoding}" FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="6" Text="{Binding StatusLineEnding}" FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="7" Text="{Binding StatusLanguage}" FontSize="12" Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Welcome View -->
+        <views:WelcomeView IsVisible="{Binding IsWelcomeVisible}"/>
+
+        <!-- Permission Dialog Overlay -->
+        <views:PermissionDialog IsVisible="{Binding IsPermissionDialogVisible}"/>
+    </Panel>
+</Window>

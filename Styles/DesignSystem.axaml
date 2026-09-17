@@ -1,0 +1,213 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <!-- VS Code Dark+ Theme Colors -->
+        <SolidColorBrush x:Key="AppBackground" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="AppSecondary" Color="#252526"/>
+        <SolidColorBrush x:Key="AppTertiary" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="AppForeground" Color="#CCCCCC"/>
+        <SolidColorBrush x:Key="AppMutedForeground" Color="#888888"/>
+        <SolidColorBrush x:Key="AppAccent" Color="#0078D4"/>
+        <SolidColorBrush x:Key="AppAccentHover" Color="#1E8CD8"/>
+        <SolidColorBrush x:Key="AppBorder" Color="#3C3C3C"/>
+        <SolidColorBrush x:Key="AppInput" Color="#3C3C3C"/>
+        <SolidColorBrush x:Key="AppCard" Color="#2D2D30"/>
+        <SolidColorBrush x:Key="AppSelection" Color="#094771"/>
+        <SolidColorBrush x:Key="AppSelectionInactive" Color="#37373D"/>
+        <SolidColorBrush x:Key="AppHover" Color="#2A2D2E"/>
+        <SolidColorBrush x:Key="AppActivityBar" Color="#333333"/>
+        <SolidColorBrush x:Key="AppStatusBar" Color="#007ACC"/>
+        <SolidColorBrush x:Key="AppTabActive" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="AppTabInactive" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="AppSidebarHeader" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="AppScrollbar" Color="#424242"/>
+        <SolidColorBrush x:Key="AppScrollbarHover" Color="#4F4F4F"/>
+
+        <!-- Typography -->
+        <FontFamily x:Key="PrimaryFont">fonts:Inter#Inter</FontFamily>
+        <FontFamily x:Key="MonoFont">avares://Vetala/Assets/Fonts#JetBrains Mono</FontFamily>
+
+        <!-- Icons (VS Code style SVG paths) -->
+        <StreamGeometry x:Key="IconFolder">M2 4.5C2 3.67 2.67 3 3.5 3H8.44a2 2 0 0 1 1.34.52L11.22 5H16.5c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5h-13A1.5 1.5 0 0 1 2 15.5v-11Z</StreamGeometry>
+        <StreamGeometry x:Key="IconFolderOpen">M2 4.5C2 3.67 2.67 3 3.5 3h5.94a2 2 0 0 1 1.34.52l1.22 1.2H18.5c.83 0 1.5.67 1.5 1.5V7H3.11a.5.5 0 0 0-.48.61l1.38 5.52A1.5 1.5 0 0 0 5.45 14.5h12.1c.69 0 1.3-.47 1.45-1.14l1.73-6.9A.5.5 0 0 1 21 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-16A1.5 1.5 0 0 1 2 14.5v-10Z</StreamGeometry>
+        <StreamGeometry x:Key="IconFile">M4 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5.41a1 1 0 0 0-.29-.7l-3.42-3.42A1 1 0 0 0 13.59 1H4Zm3 4.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm0 3a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z</StreamGeometry>
+        <StreamGeometry x:Key="IconNewFile">M16 8.5a.5.5 0 0 0-1 0V11h-2.5a.5.5 0 0 0 0 1H15v2.5a.5.5 0 0 0 1 0V12h2.5a.5.5 0 0 0 0-1H16V8.5Z M4 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6.5a.5.5 0 0 0-.15-.35l-3-3A.5.5 0 0 0 14.5 3H4Zm0 1h10v3a1 1 0 0 0 1 1h3v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z</StreamGeometry>
+        <StreamGeometry x:Key="IconNewFolder">M14.5 8a.5.5 0 0 0-1 0v2.5H11a.5.5 0 0 0 0 1h2.5V14a.5.5 0 0 0 1 0v-2.5H17a.5.5 0 0 0 0-1h-2.5V8Z M2 4.5C2 3.67 2.67 3 3.5 3h5.94a2 2 0 0 1 1.34.52l1.22 1.2H18.5c.83 0 1.5.67 1.5 1.5v1.78a.5.5 0 0 1-1 0V6.22a.5.5 0 0 0-.5-.5h-6.5a.5.5 0 0 1-.34-.13l-1.22-1.2a1 1 0 0 0-.66-.26H3.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.42a.5.5 0 0 1 0 1H3.5A1.5 1.5 0 0 1 2 14.5v-10Z</StreamGeometry>
+        <StreamGeometry x:Key="IconPlay">M6 4.75v10.5a.75.75 0 0 0 1.14.64l8.25-5.25a.75.75 0 0 0 0-1.28L7.14 4.11A.75.75 0 0 0 6 4.75Z</StreamGeometry>
+        <StreamGeometry x:Key="IconBook">M4 4.5A2.5 2.5 0 0 1 6.5 2H16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6.5A2.5 2.5 0 0 1 4 15.5v-11ZM6.5 4a.5.5 0 0 0-.5.5v9.05A2.5 2.5 0 0 1 6.5 13H16V4H6.5ZM6 15.5a.5.5 0 0 0 .5.5H16v-1H6.5a.5.5 0 0 0-.5.5Z</StreamGeometry>
+        <StreamGeometry x:Key="IconDocument">M6 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7.41a1 1 0 0 0-.29-.7l-4.42-4.42a1 1 0 0 0-.7-.29H6Zm5 1.5V7a1 1 0 0 0 1 1h3.5L11 3.5ZM7 11a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H7Zm0 3a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H7Z</StreamGeometry>
+        <StreamGeometry x:Key="IconSearch">M10 2.5a7.5 7.5 0 0 1 5.96 12.05l4.25 4.24a.75.75 0 1 1-1.06 1.06l-4.24-4.25A7.5 7.5 0 1 1 10 2.5Zm0 1.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z</StreamGeometry>
+        <StreamGeometry x:Key="IconGitBranch">M5.56 4a2.5 2.5 0 1 1 .94 0v5.26A3.5 3.5 0 0 1 9 8h2a2 2 0 0 0 2-2V4.56a2.5 2.5 0 1 1 1.5 0V6a3.5 3.5 0 0 1-3.5 3.5H9a2 2 0 0 0-2 2v2.94a2.5 2.5 0 1 1-1.5 0V4.56z</StreamGeometry>
+        <StreamGeometry x:Key="IconCollapseAll">M3 11h12v2H3z</StreamGeometry>
+    </Styles.Resources>
+
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{DynamicResource AppBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AppForeground}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource PrimaryFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppForeground}"/>
+    </Style>
+
+    <Style Selector="TextBlock.Header">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <Style Selector="TextBlock.Body">
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+    <Style Selector="TextBlock.Caption">
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedForeground}"/>
+    </Style>
+    <Style Selector="TextBlock.Mono">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+    <!-- Base Button -->
+    <Style Selector="Button">
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource AppForeground}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppHover}"/>
+    </Style>
+
+    <!-- Primary Button (Blue) -->
+    <Style Selector="Button.Primary">
+        <Setter Property="Background" Value="{DynamicResource AppAccent}"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="CornerRadius" Value="2"/>
+    </Style>
+    <Style Selector="Button.Primary:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppAccentHover}"/>
+    </Style>
+
+    <!-- Sidebar Nav Button -->
+    <Style Selector="Button.SidebarItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="Margin" Value="8,1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+    </Style>
+    <Style Selector="Button.SidebarItem.Active">
+        <Setter Property="Background" Value="{DynamicResource AppSelectionInactive}"/>
+    </Style>
+    <Style Selector="Button.SidebarItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppHover}"/>
+    </Style>
+
+    <!-- Activity Bar Button -->
+    <Style Selector="Button.ActivityBar">
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.ActivityBar:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#3C3C3C"/>
+    </Style>
+
+    <!-- Tab Close Button -->
+    <Style Selector="Button.TabClose">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="CornerRadius" Value="3"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.TabClose:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#555555"/>
+    </Style>
+
+    <!-- TextBox -->
+    <Style Selector="TextBox">
+        <Setter Property="CornerRadius" Value="2"/>
+        <Setter Property="Background" Value="{DynamicResource AppInput}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="{DynamicResource AppForeground}"/>
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="MinHeight" Value="26"/>
+    </Style>
+    <Style Selector="TextBox:focus /template/ Border">
+        <Setter Property="BorderBrush" Value="{DynamicResource AppAccent}"/>
+    </Style>
+
+    <!-- ScrollBar -->
+    <Style Selector="ScrollBar">
+        <Setter Property="Background" Value="{DynamicResource AppBackground}"/>
+    </Style>
+    <Style Selector="ScrollBar Thumb">
+        <Setter Property="Background" Value="{DynamicResource AppScrollbar}"/>
+    </Style>
+    <Style Selector="ScrollBar Thumb:pointerover">
+        <Setter Property="Background" Value="{DynamicResource AppScrollbarHover}"/>
+    </Style>
+
+    <Style Selector="Border">
+        <Setter Property="CornerRadius" Value="0"/>
+    </Style>
+
+    <!-- Menu -->
+    <Style Selector="Menu, ContextMenu">
+        <Setter Property="Background" Value="#2D2D2D"/>
+        <Setter Property="BorderBrush" Value="#454545"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="4"/>
+    </Style>
+    <Style Selector="MenuItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#CCCCCC"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="CornerRadius" Value="3"/>
+    </Style>
+    <Style Selector="MenuItem:pointerover">
+        <Setter Property="Background" Value="#094771"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+    </Style>
+    <Style Selector="Separator">
+        <Setter Property="Background" Value="#454545"/>
+        <Setter Property="Margin" Value="4,4"/>
+        <Setter Property="Height" Value="1"/>
+    </Style>
+
+    <!-- Bottom panel tabs -->
+    <Style Selector="Button.PanelTab">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0,2,0,0"/>
+        <Setter Property="Padding" Value="10,6"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="#888888"/>
+    </Style>
+    <Style Selector="Button.PanelTab:pointerover /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="#CCCCCC"/>
+    </Style>
+    <Style Selector="Button.PanelTab.active">
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#007ACC"/>
+    </Style>
+</Styles>

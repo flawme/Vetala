@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="using:Vetala.Views"
+        x:DataType="views:ConfirmDialog"
+        x:Class="Vetala.Views.ConfirmDialog"
+        Title="{Binding DialogTitle}"
+        Width="400" Height="150"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource AppSecondary}">
+    <Border Padding="20">
+        <StackPanel Spacing="16">
+            <TextBlock Text="{Binding Message}" FontSize="13" Foreground="{DynamicResource AppForeground}" TextWrapping="Wrap"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,16,0,0">
+                <Button Name="CancelBtn" Content="Cancel" Click="OnCancelClick" IsCancel="True"/>
+                <Button Name="ConfirmBtn" Content="OK" Background="#0E639C" Foreground="White" BorderThickness="0" Click="OnConfirmClick" IsDefault="True"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

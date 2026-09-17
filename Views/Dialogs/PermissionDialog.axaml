@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Vetala.ViewModels"
+             x:DataType="vm:MainWindowViewModel"
+             x:Class="Vetala.Views.PermissionDialog">
+
+    <!-- Full-screen overlay -->
+    <Grid Background="#CC000000">
+        <Border Background="{DynamicResource AppSecondary}"
+                BorderBrush="{DynamicResource AppBorder}"
+                BorderThickness="1"
+                CornerRadius="8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="460"
+                Padding="28">
+            <StackPanel Spacing="20">
+
+                <!-- Header -->
+                <StackPanel Spacing="4">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="M10 1a1 1 0 0 1 .89.55L12 3.72l2.11-2.17A1 1 0 0 1 15 2v7.27a4.5 4.5 0 1 1-6 0V2a1 1 0 0 1 .89-.99ZM12 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"
+                                  Width="20" Height="20" Foreground="#F59E0B"/>
+                        <TextBlock Text="Permission Required" FontSize="16" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Message -->
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Vetala needs read and write access to the selected folder to function as your code editor."
+                               TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AppMutedForeground}" LineHeight="20"/>
+
+                    <Border Background="{DynamicResource AppBackground}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="12">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Folder" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            <TextBlock Text="{Binding PendingProjectPath}" Classes="Mono" FontSize="12" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="This allows Vetala to:"
+                               FontSize="13" FontWeight="SemiBold" Margin="0,4,0,0"/>
+
+                    <StackPanel Spacing="6" Margin="4,0,0,0">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="•" FontSize="13" Foreground="{DynamicResource AppMutedForeground}"/>
+                            <TextBlock Text="Read files and folders in this directory" FontSize="13" Foreground="{DynamicResource AppMutedForeground}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="•" FontSize="13" Foreground="{DynamicResource AppMutedForeground}"/>
+                            <TextBlock Text="Write, create, and modify files" FontSize="13" Foreground="{DynamicResource AppMutedForeground}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="•" FontSize="13" Foreground="{DynamicResource AppMutedForeground}"/>
+                            <TextBlock Text="Run build and terminal commands" FontSize="13" Foreground="{DynamicResource AppMutedForeground}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Buttons -->
+                <Grid ColumnDefinitions="*, Auto, Auto" Margin="0,4,0,0">
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                        <Button Content="Deny" Command="{Binding DenyPermissionCommand}" MinWidth="80"/>
+                        <Button Content="Allow Access" Classes="Primary" Command="{Binding GrantPermissionCommand}" MinWidth="120"/>
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

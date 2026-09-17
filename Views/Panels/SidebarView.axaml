@@ -1,0 +1,136 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Vetala.ViewModels"
+             xmlns:models="using:Vetala.Models"
+             x:DataType="vm:MainWindowViewModel"
+             x:Class="Vetala.Views.SidebarView">
+
+    <Border Background="#252526" BorderBrush="#1E1E1E" BorderThickness="0,0,1,0" MinWidth="150">
+        <Grid RowDefinitions="35, *">
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#2D2D2D" BorderBrush="#1E1E1E" BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="*, Auto" Margin="12,0,8,0">
+                    <TextBlock Grid.Column="0" Text="EXPLORER" FontSize="11" FontWeight="Bold" 
+                               VerticalAlignment="Center" Foreground="#888888"
+                               LetterSpacing="0.5"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
+                        <Button Padding="3" Background="Transparent" BorderThickness="0" 
+                                Command="{Binding Sidebar.NewFileCommand}" 
+                                CommandParameter="{Binding Sidebar.SelectedItem.Node}"
+                                ToolTip.Tip="New File">
+                            <PathIcon Data="{DynamicResource IconNewFile}" Width="12" Height="12" Foreground="#888888"/>
+                        </Button>
+                        <Button Padding="3" Background="Transparent" BorderThickness="0" 
+                                Command="{Binding Sidebar.NewFolderCommand}" 
+                                CommandParameter="{Binding Sidebar.SelectedItem.Node}"
+                                ToolTip.Tip="New Folder">
+                            <PathIcon Data="{DynamicResource IconNewFolder}" Width="12" Height="12" Foreground="#888888"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Virtualized flat list -->
+            <ListBox Grid.Row="1"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     ItemsSource="{Binding Sidebar.FlatNodes}"
+                     SelectedItem="{Binding Sidebar.SelectedItem, Mode=TwoWay}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ContextRequested="OnEmptyAreaContextRequest"
+                     PointerPressed="OnListBoxPointerPressed"
+                     Name="FlatTreeList">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="models:FlatTreeItem">
+                        <Border Padding="0" Background="Transparent" MinHeight="22"
+                                PointerPressed="OnItemPointerPressed"
+                                ContextRequested="OnItemContextRequest">
+                            <Grid ColumnDefinitions="16, Auto, *, Auto" Margin="{Binding Indent}">
+                                <!-- Expand/collapse arrow -->
+                                <Border Grid.Column="0" Width="16" Height="16" 
+                                        Background="Transparent"
+                                        CornerRadius="3"
+                                        IsVisible="{Binding IsExpandable}"
+                                        VerticalAlignment="Center">
+                                    <TextBlock Text="&#x25B6;" FontSize="8" 
+                                               Foreground="#888888"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+
+                                <!-- File/folder icon -->
+                                <PathIcon Grid.Column="1" 
+                                          Data="{DynamicResource IconFolderOpen}" 
+                                          IsVisible="{Binding IsDirectory}"
+                                          Width="16" Height="16" 
+                                          Foreground="#DC9656"
+                                          Margin="2,0,6,0"
+                                          VerticalAlignment="Center"/>
+                                <PathIcon Grid.Column="1" 
+                                          Data="{DynamicResource IconFile}" 
+                                          IsVisible="{Binding !IsDirectory}"
+                                          Width="16" Height="16" 
+                                          Foreground="#888888"
+                                          Margin="2,0,6,0"
+                                          VerticalAlignment="Center"/>
+
+                                <!-- Normal display: name + extension -->
+                                <TextBlock Grid.Column="2" 
+                                           Text="{Binding BaseName}" 
+                                           FontSize="13" 
+                                           VerticalAlignment="Center" 
+                                           TextTrimming="CharacterEllipsis"
+                                           Foreground="#CCCCCC"
+                                           IsVisible="{Binding !IsRenaming}"/>
+                                <TextBlock Grid.Column="3" 
+                                           Text="{Binding Extension}" 
+                                           FontSize="13" 
+                                           VerticalAlignment="Center" 
+                                           Foreground="#888888"
+                                           IsVisible="{Binding !IsRenaming}"/>
+
+                                <!-- Rename mode: editable TextBox -->
+                                <TextBox Grid.Column="2"
+                                         Text="{Binding RenameText}"
+                                         FontSize="13"
+                                         MinHeight="20"
+                                         Padding="2,1"
+                                         CornerRadius="2"
+                                         IsVisible="{Binding IsRenaming}"
+                                         KeyDown="OnRenameKeyDown"
+                                         LostFocus="OnRenameLostFocus"
+                                         Name="RenameBox"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem" x:DataType="models:FlatTreeItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="MinHeight" Value="22"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:selected">
+                        <Setter Property="Background" Value="#37373D"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:selected:focus">
+                        <Setter Property="Background" Value="#094771"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:pointerover">
+                        <Setter Property="Background" Value="#2A2D2E"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:selected:pointerover">
+                        <Setter Property="Background" Value="#094771"/>
+                    </Style>
+                </ListBox.Styles>
+            </ListBox>
+        </Grid>
+    </Border>
+</UserControl>

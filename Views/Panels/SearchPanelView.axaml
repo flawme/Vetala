@@ -1,0 +1,84 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Vetala.ViewModels"
+             xmlns:models="using:Vetala.Models"
+             x:Class="Vetala.Views.SearchPanelView"
+             x:DataType="vm:MainWindowViewModel">
+
+    <Border Background="#252526" BorderBrush="#1E1E1E" BorderThickness="0,0,1,0" MinWidth="150">
+        <Grid RowDefinitions="35, Auto, *, Auto">
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#2D2D2D" BorderBrush="#1E1E1E" BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="*, Auto" Margin="12,0,8,0">
+                    <TextBlock Grid.Column="0" Text="SEARCH" FontSize="11" FontWeight="Bold"
+                               VerticalAlignment="Center" Foreground="#888888"
+                               LetterSpacing="0.5"/>
+                    <Button Grid.Column="1" Padding="3" Background="Transparent" BorderThickness="0"
+                            Command="{Binding Search.ClearCommand}" ToolTip.Tip="Clear">
+                        <TextBlock Text="✕" FontSize="9" Foreground="#888888"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Search input -->
+            <StackPanel Grid.Row="1" Margin="10,10,10,8" Spacing="6">
+                <TextBox x:Name="SearchBox"
+                         Text="{Binding Search.Query, Mode=TwoWay}"
+                         PlaceholderText="Search in project"
+                         KeyDown="OnSearchBoxKeyDown"/>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <ToggleButton Content="Match Case"
+                                  IsChecked="{Binding Search.MatchCase, Mode=TwoWay}"
+                                  FontSize="11" Padding="8,3"/>
+                    <Button Command="{Binding Search.SearchCommand}"
+                            FontSize="11" Padding="12,3"
+                            Content="Search"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Results -->
+            <ScrollViewer Grid.Row="2" Background="Transparent">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding Search.ResultFiles}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="models:FileSearchResult">
+                                <StackPanel Margin="0,0,0,6">
+                                    <Grid ColumnDefinitions="*, Auto" Margin="12,6,8,2">
+                                        <TextBlock Grid.Column="0" Text="{Binding DisplayPath}"
+                                                   FontSize="12" Foreground="#C8C8C8"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   ToolTip.Tip="{Binding FilePath}"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding MatchCount}"
+                                                   FontSize="11" Foreground="#888888"/>
+                                    </Grid>
+                                    <ItemsControl ItemsSource="{Binding Matches}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="models:SearchMatch">
+                                                <Border Background="Transparent"
+                                                        PointerPressed="OnMatchPointerPressed"
+                                                        Tag="{Binding}"
+                                                        Padding="28,2,8,2"
+                                                        MinHeight="20"
+                                                        Cursor="Hand">
+                                                    <TextBlock Text="{Binding Preview}"
+                                                               FontSize="11" Foreground="#9A9A9A"
+                                                               TextTrimming="CharacterEllipsis"
+                                                               ToolTip.Tip="{Binding FilePath}"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Footer -->
+            <Border Grid.Row="3" Background="#2D2D2D" BorderBrush="#1E1E1E" BorderThickness="0,1,0,0" Padding="12,5">
+                <TextBlock Text="{Binding Search.Summary}" FontSize="11" Foreground="#888888"/>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

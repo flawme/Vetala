@@ -1,0 +1,174 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Vetala.Views.LicensesView">
+    <ScrollViewer Background="{DynamicResource AppBackground}" Padding="32,24"
+                  HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="24" MaxWidth="640">
+            
+            <!-- Header -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="Licenses" Classes="Header"/>
+                <TextBlock Text="Software license and third-party attributions" Classes="Caption"/>
+            </StackPanel>
+
+                <!-- EULA -->
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Vetala License" FontWeight="SemiBold"/>
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="MIT License (open source)" FontWeight="SemiBold" Foreground="{DynamicResource AppAccent}" FontSize="12"/>
+                            <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="{DynamicResource AppMutedForeground}" LineHeight="18"
+                                       Text="Copyright (c) 2026 Vetala&#x0a;&#x0a;Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:&#x0a;&#x0a;The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.&#x0a;&#x0a;THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- Third Party -->
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Third-Party Notices" FontWeight="SemiBold"/>
+                    
+                    <!-- Avalonia UI -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Avalonia UI" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text=".NET Foundation and Contributors" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="Cross-platform XAML framework for .NET" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="MIT" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- AvaloniaEdit -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="AvaloniaEdit" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text="AvaloniaUI and Contributors" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="Text editor control with syntax highlighting, search, and code folding" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="MIT" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Avalonia.Themes.Fluent -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Avalonia.Themes.Fluent" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text=".NET Foundation and Contributors" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="Fluent design theme for Avalonia applications" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="MIT" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Avalonia.Fonts.Inter -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Avalonia.Fonts.Inter" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text=".NET Foundation and Contributors" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="Inter font family for Avalonia applications" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="MIT" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Avalonia.Xaml.Behaviors -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Avalonia.Xaml.Behaviors" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text="AvaloniaUI and Contributors" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="XAML behaviors and interactions for Avalonia" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="MIT" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- CommunityToolkit.Mvvm -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="CommunityToolkit.Mvvm" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text=".NET Foundation and Contributors" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="MVVM toolkit with source generators for .NET" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="MIT" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Inter Font -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Inter Font" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text="Rasmus Andersson" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="Variable font family for UI" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="OFL 1.1" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- JetBrains Mono -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="JetBrains Mono" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text="JetBrains s.r.o." Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="Monospaced font for developers" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="OFL 1.1" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- AvaloniaUI.DiagnosticsSupport -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="AvaloniaUI.DiagnosticsSupport" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text="AvaloniaUI and Contributors" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="Developer tools and diagnostics for Avalonia" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="MIT" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Porta.Pty -->
+                    <Border Background="{DynamicResource AppSecondary}" BorderBrush="{DynamicResource AppBorder}" BorderThickness="1" CornerRadius="4" Padding="16">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Spacing="2">
+                                <TextBlock Text="Porta.Pty" FontWeight="SemiBold" FontSize="13"/>
+                                <TextBlock Text="TomLM (Iciclecreek)" Classes="Caption" FontSize="11"/>
+                                <TextBlock Text="Cross-platform pseudo-terminal (PTY) library using forkpty on Unix and ConPTY on Windows" FontSize="11" Foreground="{DynamicResource AppMutedForeground}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="{DynamicResource AppInput}" CornerRadius="4" Padding="8,4" VerticalAlignment="Center">
+                                <TextBlock Text="MIT" Classes="Mono" FontSize="11" Foreground="{DynamicResource AppMutedForeground}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                
+            </StackPanel>
+    </ScrollViewer>
+</UserControl>

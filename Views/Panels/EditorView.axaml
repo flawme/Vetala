@@ -1,0 +1,193 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Vetala.ViewModels"
+             xmlns:models="using:Vetala.Models"
+             xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+             xmlns:editing="clr-namespace:AvaloniaEdit.Editing;assembly=AvaloniaEdit"
+             x:Class="Vetala.Views.EditorView"
+             x:DataType="vm:EditorViewModel">
+
+    <Grid>
+        <!-- Empty state -->
+        <Panel IsVisible="{Binding !HasTabs}" Background="#1E1E1E">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="16">
+                <PathIcon Data="{DynamicResource IconFolderOpen}"
+                          Width="48" Height="48"
+                          Foreground="#3C3C3C"
+                          HorizontalAlignment="Center"/>
+                <TextBlock Text="Vetala"
+                           FontSize="32"
+                           FontWeight="Light"
+                           Foreground="#4A4A4A"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Open a file from the explorer to start editing"
+                           FontSize="13"
+                           Foreground="#555555"
+                           HorizontalAlignment="Center"
+                           Opacity="0.7"/>
+            </StackPanel>
+        </Panel>
+
+        <Grid IsVisible="{Binding HasTabs}" RowDefinitions="35, 25, *">
+            <!-- Tab Bar (VS Code style) -->
+            <Border Grid.Row="0" Background="#252526" BorderBrush="#1E1E1E" BorderThickness="0,0,0,1">
+                <ListBox ItemsSource="{Binding Tabs}"
+                         SelectedItem="{Binding ActiveTab, Mode=TwoWay}"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         Padding="0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                         ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem" x:DataType="models:EditorTab">
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="MinHeight" Value="35"/>
+                            <Setter Property="Background" Value="#2D2D2D"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#1E1E1E"/>
+                        </Style>
+                        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#353535"/>
+                        </Style>
+                        <Style Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter">
+                            <Setter Property="Background" Value="#1E1E1E"/>
+                        </Style>
+                    </ListBox.Styles>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="models:EditorTab">
+                            <Border Padding="14,0" MinHeight="35"
+                                    BorderBrush="#252526" BorderThickness="0,0,1,0"
+                                    ContextRequested="OnTabContextRequested">
+                                <Grid ColumnDefinitions="Auto, Auto, Auto" VerticalAlignment="Center">
+                                    <PathIcon Grid.Column="0" 
+                                              Width="14" Height="14"
+                                              Foreground="#888888"
+                                              Margin="0,0,8,0"
+                                              VerticalAlignment="Center"
+                                              Data="{DynamicResource IconFile}"/>
+
+                                    <TextBlock Grid.Column="1" 
+                                               Text="{Binding Title}"
+                                               FontSize="13"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,8,0"
+                                               Foreground="#EEEEEE"/>
+
+                                    <TextBlock Grid.Column="2" Text="&#x25CF;"
+                                               IsVisible="{Binding IsDirty}"
+                                               VerticalAlignment="Center"
+                                               FontSize="10"
+                                               Foreground="#CCCCCC"
+                                               Margin="0,0,4,0"/>
+
+                                    <Button Grid.Column="3" Classes="TabClose"
+                                            Command="{Binding $parent[UserControl].((vm:EditorViewModel)DataContext).CloseTabCommand}"
+                                            CommandParameter="{Binding}">
+                                        <TextBlock Text="&#x2715;" FontSize="9"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="#888888"/>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+
+            <!-- Breadcrumb bar -->
+            <Border Grid.Row="1" Background="#1E1E1E"
+                    BorderBrush="#2D2D2D" BorderThickness="0,0,0,1"
+                    Padding="16,0,0,0">
+                <ItemsControl ItemsSource="{Binding BreadcrumbSegments}" VerticalAlignment="Center">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="0"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding}" FontSize="12"
+                                           Foreground="#888888"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Text="&#x203A;" FontSize="12"
+                                           Foreground="#555555"
+                                           VerticalAlignment="Center" Margin="4,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+            <!-- Editor Surface -->
+            <ContentControl Grid.Row="2" Content="{Binding ActiveTab}">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate DataType="models:EditorTab">
+                        <Grid Background="#1E1E1E">
+                            <ae:TextEditor Document="{Binding Document}"
+                                           Background="#1E1E1E"
+                                           Foreground="#D4D4D4"
+                                           FontFamily="{DynamicResource MonoFont}"
+                                           FontSize="14"
+                                           FontWeight="Normal"
+                                           LineNumbersForeground="#858585"
+                                           SyntaxHighlighting="{Binding SyntaxHighlighting}"
+                                           ShowLineNumbers="{Binding $parent[UserControl].((vm:EditorViewModel)DataContext).ShowLineNumbers}"
+                                           WordWrap="{Binding $parent[UserControl].((vm:EditorViewModel)DataContext).WordWrap}"
+                                           IsReadOnly="{Binding IsReadOnly}"
+                                           HorizontalScrollBarVisibility="Auto"
+                                           VerticalScrollBarVisibility="Visible"
+                                           BorderThickness="0"
+                                           Padding="0,6,0,0"
+                                           AttachedToVisualTree="OnTextEditorAttached"
+                                           DetachedFromVisualTree="OnTextEditorDetached">
+                                <ae:TextEditor.Styles>
+                                    <Style Selector="editing|LineNumberMargin">
+                                        <Setter Property="Margin" Value="0,0,18,0"/>
+                                    </Style>
+                                    <Style Selector="ScrollBar">
+                                        <Setter Property="Background" Value="#1E1E1E"/>
+                                    </Style>
+                                </ae:TextEditor.Styles>
+                            </ae:TextEditor>
+
+                            <!-- Loading overlay -->
+                            <Border IsVisible="{Binding IsLoading}"
+                                    Background="#D01E1E1E"
+                                    Padding="18,14"
+                                    VerticalAlignment="Top"
+                                    BorderBrush="#2D2D2D"
+                                    BorderThickness="0,0,0,1">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <ProgressBar Width="96" Height="2" IsIndeterminate="True" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Loading file" FontSize="12" Foreground="#888888" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Error overlay -->
+                            <Border IsVisible="{Binding HasLoadError}"
+                                    Background="#D01E1E1E"
+                                    Padding="18,14"
+                                    VerticalAlignment="Top"
+                                    BorderBrush="#5A2A2A"
+                                    BorderThickness="0,0,0,1">
+                                <TextBlock Text="{Binding LoadError}" FontSize="12" Foreground="#F08A8A"/>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+        </Grid>
+    </Grid>
+</UserControl>
