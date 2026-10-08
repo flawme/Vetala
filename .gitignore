@@ -481,3 +481,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Release packaging staging directory (see .github/workflows/release.yml)
+staging/
